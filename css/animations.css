@@ -1,0 +1,144 @@
+/* ─── LOADING SCREEN ─────────────────────────────────────── */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #2C1A22;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity .6s ease, visibility .6s ease;
+}
+#loader.hide { opacity: 0; visibility: hidden; }
+
+.loader-logo { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 900; color: #C8498A; letter-spacing: -2px; margin-bottom: 1.5rem; }
+.loader-logo img { width: 72px; height: 72px; object-fit: contain; display: block; margin: 0 auto; }
+.loader-logo span { color: white; font-size: 22px; font-weight: 700; display: block; letter-spacing: 4px; text-transform: uppercase; margin-top: .2rem; }
+.loader-bar { width: 200px; height: 2px; background: rgba(255,255,255,.15); border-radius: 2px; overflow: hidden; }
+.loader-fill { height: 100%; background: #C8498A; border-radius: 2px; animation: loadFill 1.6s ease forwards; }
+@keyframes loadFill { from { width: 0 } to { width: 100% } }
+.loader-text { margin-top: 1rem; font-family: 'Poppins', sans-serif; font-size: 12px; color: rgba(255,255,255,.4); letter-spacing: 2px; text-transform: uppercase; }
+
+/* ─── CURSOR CUSTOMIZADO ─────────────────────────────────── */
+#cursor-dot, #cursor-ring {
+  position: fixed; border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: opacity .3s;
+}
+#cursor-dot  { width: 6px; height: 6px; background: #C8498A; transition: transform .1s; }
+#cursor-ring { width: 24px; height: 24px; border: 1.5px solid #C8498A; opacity: .45; transition: transform .15s, width .2s, height .2s, opacity .2s; }
+body.hovering #cursor-ring { width: 40px; height: 40px; opacity: .7; }
+body.hovering #cursor-dot  { transform: translate(-50%,-50%) scale(0); }
+
+/* ─── TICKER HORIZONTAL ──────────────────────────────────── */
+.ticker-wrap { overflow: hidden; background: #C8498A; padding: .7rem 0; }
+.ticker-inner { display: flex; width: max-content; animation: ticker 22s linear infinite; }
+.ticker-inner:hover { animation-play-state: paused; }
+.ticker-item { font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 800; color: white; white-space: nowrap; padding: 0 2rem; letter-spacing: .5px; text-transform: uppercase; }
+.ticker-dot  { color: rgba(255,255,255,.5); }
+@keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+/* ─── REVEAL AO SCROLL ───────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left  { opacity: 0; transform: translateX(-50px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+.reveal-right { opacity: 0; transform: translateX(50px); transition: opacity .7s ease, transform .7s ease; }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* delay helpers */
+.delay-1 { transition-delay: .1s }
+.delay-2 { transition-delay: .2s }
+.delay-3 { transition-delay: .3s }
+.delay-4 { transition-delay: .4s }
+.delay-5 { transition-delay: .5s }
+
+/* ─── PARALLAX HERO ──────────────────────────────────────── */
+.parallax-bg { will-change: transform; }
+
+/* ─── TEXT GLITCH / HIGHLIGHT ────────────────────────────── */
+.highlight-word {
+  position: relative; display: inline-block; color: #C8498A;
+}
+.highlight-word::after {
+  content: '';
+  position: absolute; bottom: 2px; left: 0; right: 0;
+  height: 3px; background: #C8498A; border-radius: 2px;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .6s ease;
+}
+.highlight-word.visible::after { transform: scaleX(1); }
+
+/* ─── FLOATING SHAPES ────────────────────────────────────── */
+.float-shape {
+  position: absolute; border-radius: 50%;
+  background: rgba(200,73,138,.08);
+  pointer-events: none; will-change: transform;
+}
+.float-shape.s1 { width: 300px; height: 300px; top: -80px; right: -60px; animation: floatA 7s ease-in-out infinite; }
+.float-shape.s2 { width: 180px; height: 180px; bottom: 40px; left: 5%; animation: floatB 9s ease-in-out infinite; }
+.float-shape.s3 { width: 120px; height: 120px; top: 40%; right: 10%; animation: floatA 11s ease-in-out infinite reverse; }
+@keyframes floatA { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-24px) } }
+@keyframes floatB { 0%,100% { transform: translateY(0) } 50% { transform: translateY(18px) } }
+
+/* ─── CONTADOR ANIMADO ───────────────────────────────────── */
+.stat-num { font-size: 48px; font-weight: 900; color: #C8498A; line-height: 1; }
+
+/* ─── MARQUEE VERTICAL ───────────────────────────────────── */
+.marquee-v { overflow: hidden; height: 1.2em; display: inline-block; vertical-align: bottom; }
+.marquee-v-inner { display: flex; flex-direction: column; animation: marqueeV 4s ease-in-out infinite; }
+.marquee-v-inner span { display: block; line-height: 1.2em; }
+@keyframes marqueeV {
+  0%,20%   { transform: translateY(0) }
+  30%,50%  { transform: translateY(-1.2em) }
+  60%,80%  { transform: translateY(-2.4em) }
+  90%,100% { transform: translateY(0) }
+}
+
+/* ─── CARD HOVER 3D ──────────────────────────────────────── */
+.card-3d { transition: transform .3s ease, box-shadow .3s ease; transform-style: preserve-3d; }
+.card-3d:hover { box-shadow: 0 20px 60px rgba(200,73,138,.2); }
+
+/* ─── BOTÃO MAGNÉTICO ────────────────────────────────────── */
+.btn-magnetic { transition: transform .2s ease; display: inline-flex; align-items: center; gap: 8px; }
+.btn-magnetic:hover { transform: scale(1.05); }
+
+/* ─── SPLIT TEXT HERO ────────────────────────────────────── */
+.hero-word { display: inline-block; opacity: 0; transform: translateY(60px); }
+.hero-word.in { animation: wordIn .6s ease forwards; }
+@keyframes wordIn { to { opacity: 1; transform: translateY(0); } }
+
+/* ─── LINE DRAW ──────────────────────────────────────────── */
+.line-draw { width: 0; height: 2px; background: #C8498A; border-radius: 2px; transition: width 1s ease; }
+.line-draw.visible { width: 80px; }
+
+/* ─── IMAGE REVEAL ───────────────────────────────────────── */
+.img-reveal { position: relative; overflow: hidden; }
+.img-reveal::after {
+  content: ''; position: absolute; inset: 0;
+  background: #FAF7F2;
+  transform: scaleX(1); transform-origin: right;
+  transition: transform .8s cubic-bezier(.77,0,.175,1);
+}
+.img-reveal.visible::after { transform: scaleX(0); }
+
+/* ─── PULSE BADGE ────────────────────────────────────────── */
+.pulse-dot {
+  display: inline-block; width: 8px; height: 8px;
+  background: #C8498A; border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(200,73,138,.6) } 50% { box-shadow: 0 0 0 8px rgba(200,73,138,0) } }
+
+/* ─── SCROLL INDICATOR ───────────────────────────────────── */
+.scroll-ind {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  opacity: .6; animation: fadeInUp 1s ease 2s both;
+}
+.scroll-ind span { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #8A6070; font-family: 'Poppins', sans-serif; font-weight: 700; }
+.scroll-mouse {
+  width: 22px; height: 34px; border: 2px solid #C8498A; border-radius: 12px;
+  display: flex; justify-content: center; padding-top: 5px;
+}
+.scroll-wheel { width: 3px; height: 6px; background: #C8498A; border-radius: 2px; animation: scrollW 1.5s ease infinite; }
+@keyframes scrollW { 0%,100% { transform: translateY(0); opacity: 1 } 70% { transform: translateY(8px); opacity: 0 } }
+@keyframes fadeInUp { from { opacity:0; transform: translateX(-50%) translateY(12px) } to { opacity:.6; transform: translateX(-50%) translateY(0) } }

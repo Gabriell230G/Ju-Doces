@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ju Doces</title>
+  <link rel="shortcut icon" href="./images/Isotipo - Pink Icon - White Bg-Photoroom (1).png" type="image/x-icon">
+  <meta name="description" content="Trufas, bolos bombom e brigadeiros artesanais feitos com amor em Osasco, SP. Faça sua encomenda!">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/components.css" />
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">JU<span>Doces</span></div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+  <div class="loader-text">Preparando os doces...</div>
+</div>
+
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<!-- CONFIRM MODAL (remover do carrinho) -->
+<div id="confirm-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-emoji">🍫</div>
+    <h3 class="modal-title">Tem certeza?</h3>
+    <p class="modal-text">Você realmente não quer mais esse docinho?</p>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="confirmModalCancel()">Manter no carrinho</button>
+      <button class="btn-primary" onclick="confirmModalOk()">Não quero mesmo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER PREVIEW MODAL -->
+<div id="preview-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3 class="modal-title">📋 Revisar antes de enviar</h3>
+    <p class="modal-text" style="margin-bottom:1rem">Isso será enviado para a Ju no WhatsApp:</p>
+    <div id="preview-content" class="preview-content"></div>
+    <div class="modal-actions">
+      <button class="btn-outline" onclick="closePreview()">← Editar</button>
+      <button class="btn-primary" id="preview-confirm-btn"><i class="ti ti-brand-whatsapp"></i> Enviar agora</button>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="nav('home')">
+    <img src="./images/Logomarca - Pink Icon - White Bg.png" alt="Logomarca Ju Doces">
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="nav('home')"      id="nl-home"      class="active">Início</a></li>
+    <li><a onclick="nav('catalogo')"  id="nl-catalogo"            >Cardápio</a></li>
+    <li><a onclick="nav('encomenda')" id="nl-encomenda"           >Encomenda</a></li>
+    <li><a onclick="nav('sobre')"     id="nl-sobre"               >Sobre</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-right">
+    <div class="cart-wrap">
+      <button class="cart-btn" onclick="nav('carrinho')">
+        <i class="ti ti-shopping-bag" aria-hidden="true"></i> Carrinho
+      </button>
+      <span class="cart-badge" id="cart-badge"></span>
+    </div>
+    <button class="nav-cta btn-magnetic" onclick="nav('encomenda')">Pedir agora</button>
+  </div>
+</nav>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/5511995727966">
+  <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+</a>
+<div class="wa-tooltip">Falar com a Ju! 🍫</div>
+
+
+<!-- ════════════════════════════════════════
+     HOME
+════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero-parallax">
+    <div class="float-shape s1"></div>
+    <div class="float-shape s2"></div>
+    <div class="float-shape s3"></div>
+
+    <div class="hero-tag reveal">
+      <span class="pulse-dot"></span>
+      Feito com amor
+    </div>
+
+    <h1>
+      <span class="hero-word">Doces</span>
+      <span class="hero-word"> artesanais</span><br>
+      <span class="hero-word">que </span><em class="hero-word highlight-word">derretem</em>
+      <span class="hero-word"> seu </span>
+      <span class="hero-word">coração</span>
+    </h1>
+
+    <p class="hero-sub reveal delay-3">
+      Trufas, bolos bombom, brigadeiros e muito mais.<br>
+      Doces feitos para transformar momentos simples em memórias inesquecíveis.
+    </p>
+
+    <div class="hero-btns reveal delay-4">
+      <button class="btn-primary btn-magnetic" onclick="nav('catalogo')">
+        <i class="ti ti-cookie" aria-hidden="true"></i> Ver cardápio
+      </button>
+      <button class="btn-outline btn-magnetic" onclick="nav('encomenda')">
+        <i class="ti ti-clipboard-text" aria-hidden="true"></i> Fazer encomenda
+      </button>
+    </div>
+
+    <div class="hero-badges reveal delay-5">
+      <span class="badge"><i class="ti ti-heart" aria-hidden="true"></i> Feito à mão</span>
+      <span class="badge"><i class="ti ti-truck-delivery" aria-hidden="true"></i> Entrega local</span>
+      <span class="badge"><i class="ti ti-award" aria-hidden="true"></i> Desde 2020</span>
+    </div>
+
+    <div class="scroll-ind">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner">
+      <span class="ticker-item">Trufas Artesanais</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Bolos Bombom</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Brigadeiros Gourmet</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Caixas Presente</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Encomendas Especiais</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Feito com Amor</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Trufas Artesanais</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Bolos Bombom</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Brigadeiros Gourmet</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Caixas Presente</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Encomendas Especiais</span><span class="ticker-dot">✦</span>
+      <span class="ticker-item">Feito com Amor</span><span class="ticker-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- SOBRE SPLIT -->
+  <section class="section" style="background:white">
+    <div class="about-split">
+      <div class="reveal-left img-reveal">
+        <div class="about-img-wrap card-3d">
+          <img src="./images/Foto da Confeiteira Júlia.jpeg" alt="Foto da Confeiteira Júlia">
+          <div class="about-img-badge">
+            <span class="pulse-dot"></span> Pedidos abertos
+          </div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="eyebrow">Sobre a Ju</div>
+        <div class="about-divider"></div>
+        <h2>Cada docinho feito com <em>muito</em> carinho</h2>
+        <p>Sou a Júlia, confeiteira artesanal apaixonada por transformar momentos simples em memórias doces. O que começou como hobby virou um negócio cheio de sabor.</p>
+        <p>Cada trufa, cada bolo, cada brigadeiro é feito com ingredientes selecionados, com cuidado em cada detalhe e muito carinho. Porque acredito que os melhores momentos também merecem os melhores sabores!</p>
+        <div style="display:flex;gap:1rem;margin-top:1.8rem;flex-wrap:wrap">
+          <button class="btn-primary btn-magnetic" onclick="nav('sobre')">Conheça minha história</button>
+          <button class="btn-outline btn-magnetic" onclick="openIG()">
+            <i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-num" data-count="100" data-suffix="+">0+</div>
+        <div class="stat-label">Clientes felizes</div>
+      </div>
+      <div class="stat-item reveal delay-2">
+        <div class="stat-num" data-count="4" data-suffix="">0</div>
+        <div class="stat-label">Anos de experiência</div>
+      </div>
+      <div class="stat-item reveal delay-3">
+        <div class="stat-num" data-count="10" data-suffix="+">0+</div>
+        <div class="stat-label">Sabores disponíveis</div>
+      </div>
+      <div class="stat-item reveal delay-4">
+        <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+        <div class="stat-label">Artesanal</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIAS -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-cookie" aria-hidden="true"></i> Especialidades</div>
+      <h2 class="reveal delay-1">O que você vai encontrar aqui</h2>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal delay-1" onclick="goToCategory('trufas')">
+        <span class="cat-icon">🍫</span><h3>Trufas</h3><p>7 sabores incríveis</p>
+      </div>
+      <div class="cat-card reveal delay-2" onclick="goToCategory('bolos')">
+        <span class="cat-icon">🎂</span><h3>Bolos Bombom</h3><p>Recheios deliciosos</p>
+      </div>
+      <div class="cat-card reveal delay-3" onclick="goToCategory('brigadeiros')">
+        <span class="cat-icon">🍬</span><h3>Brigadeiros</h3><p>Clássicos e especiais</p>
+      </div>
+      <div class="cat-card reveal delay-4" onclick="goToCategory('caixas')">
+        <span class="cat-icon">🎁</span><h3>Caixas Presente</h3><p>Datas especiais</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIS VENDIDOS -->
+  <section class="section" style="background:white">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-flame" aria-hidden="true"></i> Mais vendidos</div>
+      <h2 class="reveal delay-1">Os mais amados</h2>
+      <p class="reveal delay-2">Sabores que conquistaram nossos clientes e viraram os queridinhos da casa!</p>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="products-grid" id="featured-grid"></div>
+    <div style="text-align:center;margin-top:2.5rem" class="reveal">
+      <button class="btn-primary btn-magnetic" onclick="nav('catalogo')">
+        Ver todo o cardápio <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- OCASIÕES -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-sparkles" aria-hidden="true"></i> Para toda ocasião</div>
+      <h2 class="reveal delay-1">Qual é o seu momento especial?</h2>
+      <p class="reveal delay-2">A Ju faz doces personalizados para qualquer celebração</p>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="occasions-grid">
+      <div class="occasion-card reveal delay-1" onclick="nav('encomenda')">
+        <div class="occasion-icon">🎂</div><h3>Aniversários</h3>
+        <p>Bolos bombom e caixas personalizadas para a data mais especial</p>
+      </div>
+      <div class="occasion-card reveal delay-2" onclick="nav('encomenda')">
+        <div class="occasion-icon">💕</div><h3>Dia dos Namorados</h3>
+        <p>Caixas de trufas especiais para surpreender com muito amor</p>
+      </div>
+      <div class="occasion-card reveal delay-3" onclick="nav('encomenda')">
+        <div class="occasion-icon">👶</div><h3>Chá de Bebê</h3>
+        <p>Docinhos temáticos e delicados para receber o novo membro</p>
+      </div>
+      <div class="occasion-card reveal delay-1" onclick="nav('encomenda')">
+        <div class="occasion-icon">🎉</div><h3>Eventos e Festas</h3>
+        <p>Encomendas em grande quantidade para animar qualquer festa</p>
+      </div>
+      <div class="occasion-card reveal delay-2" onclick="nav('encomenda')">
+        <div class="occasion-icon">🏢</div><h3>Corporativo</h3>
+        <p>Brindes e kits especiais para empresas e confraternizações</p>
+      </div>
+      <div class="occasion-card reveal delay-3" onclick="nav('encomenda')">
+        <div class="occasion-icon">🤍</div><h3>Casamentos</h3>
+        <p>Doces personalizados para lembrancinhas inesquecíveis</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULADORA -->
+  <section class="section" style="background:white">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-calculator" aria-hidden="true"></i> Calculadora</div>
+      <h2 class="reveal delay-1">Quanto vai custar minha festa?</h2>
+      <p class="reveal delay-2">Descubra o valor estimado da sua encomenda na hora</p>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="calc-card reveal">
+      <div class="calc-row">
+        <div>
+          <div class="calc-label">Produto</div>
+          <select class="calc-select" id="calc-prod" onchange="calcUpdate()">
+            <optgroup label="🍫 Trufas — R$ 6,00/un">
+              <option value="6">Brigadeiro</option>
+              <option value="6">Prestígio</option>
+              <option value="6">Ninho</option>
+              <option value="6">Ninho c/ Morango</option>
+              <option value="6">Maracujá</option>
+              <option value="6">Café</option>
+              <option value="6">Alpino</option>
+            </optgroup>
+            <optgroup label="🎂 Bolos Bombom — R$ 7,50/un">
+              <option value="7.5">Cenoura c/ Brigadeiro</option>
+              <option value="7.5">Chocolate c/ Brigadeiro</option>
+              <option value="7.5">Chocolate c/ Prestígio</option>
+            </optgroup>
+            <optgroup label="🍬 Brigadeiros — por dúzia">
+              <option value="24">Clássico — R$ 24,00/dz</option>
+              <option value="28">Especial — R$ 28,00/dz</option>
+            </optgroup>
+            <optgroup label="🎁 Caixas Presente">
+              <option value="65">Mista 12un — R$ 65,00</option>
+              <option value="120">Mista 24un — R$ 120,00</option>
+            </optgroup>
+          </select>
+        </div>
+        <div>
+          <div class="calc-label">Quantidade</div>
+          <input class="calc-input" type="number" id="calc-qtd" value="12" min="1" oninput="calcUpdate()" />
+        </div>
+      </div>
+      <div>
+        <div class="calc-label">Entrega</div>
+        <select class="calc-select" id="calc-entrega" onchange="calcUpdate()" style="margin-bottom:.5rem">
+          <option value="0">Retirada (grátis)</option>
+          <option value="10">Entrega em Osasco (+R$ 10)</option>
+          <option value="20">Entrega região (+R$ 20)</option>
+        </select>
+      </div>
+      <div class="calc-result">
+        <div>
+          <div class="calc-result-label">Estimativa total</div>
+          <div class="calc-result-sub">Sujeito a confirmação</div>
+        </div>
+        <div class="calc-result-val" id="calc-total">R$ 72,00</div>
+      </div>
+      <button class="btn-primary" style="width:100%;margin-top:1.2rem;padding:16px;justify-content:center" onclick="nav('encomenda')">
+        Fazer este pedido <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-info-circle" aria-hidden="true"></i> Como funciona</div>
+      <h2 class="reveal delay-1">Pedido simples e rápido</h2>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal delay-1">
+        <div class="step-circle">1️⃣</div>
+        <h3>Escolha no cardápio</h3>
+        <p>Navegue pelos produtos e adicione ao carrinho</p>
+      </div>
+      <div class="step reveal delay-2">
+        <div class="step-circle">2️⃣</div>
+        <h3>Faça a encomenda</h3>
+        <p>Preencha o formulário com seus dados e data</p>
+      </div>
+      <div class="step reveal delay-3">
+        <div class="step-circle">3️⃣</div>
+        <h3>Confirmação</h3>
+        <p>A Ju confirma no WhatsApp e combina a entrega</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section class="section" style="background:white">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-heart" aria-hidden="true"></i> Depoimentos</div>
+      <h2 class="reveal delay-1">O que dizem os clientes</h2>
+      <p class="reveal delay-2">Quem prova, volta sempre — e conta para os amigos!</p>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card card-3d reveal delay-1">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"As trufas são simplesmente divinas! Pedi para o aniversário da minha mãe e todo mundo amou. Já estou encomendando de novo!"</div>
+        <div class="review-author"><div class="review-avatar">👩</div><div><div class="review-name">Ana Paula</div><div class="review-meta">Trufa de Ninho · Osasco</div></div></div>
+      </div>
+      <div class="review-card card-3d reveal delay-2">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"O bolo bombom de chocolate é incrível! Fofinho, recheio na medida certa. Entrega pontual e embalagem linda. 10/10!"</div>
+        <div class="review-author"><div class="review-avatar">👨</div><div><div class="review-name">Carlos Eduardo</div><div class="review-meta">Bolo Bombom · Osasco</div></div></div>
+      </div>
+      <div class="review-card card-3d reveal delay-3">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Pedi caixas para o chá de bebê. Ficou lindo, todos os convidados adoraram. A Ju é super atenciosa e cuidadosa!"</div>
+        <div class="review-author"><div class="review-avatar">👩</div><div><div class="review-name">Fernanda Lima</div><div class="review-meta">Caixa Presente · Osasco</div></div></div>
+      </div>
+      <div class="review-card card-3d reveal delay-1">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"A trufa de maracujá é meu vício! O equilíbrio entre o doce e o azedinho é perfeito. Peço toda semana!"</div>
+        <div class="review-author"><div class="review-avatar">👩</div><div><div class="review-name">Mariana Costa</div><div class="review-meta">Trufa Maracujá · Osasco</div></div></div>
+      </div>
+      <div class="review-card card-3d reveal delay-2">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Pedi brigadeiros para o evento da empresa. Todo mundo ficou impressionado com a qualidade!"</div>
+        <div class="review-author"><div class="review-avatar">👨</div><div><div class="review-name">Roberto Alves</div><div class="review-meta">Brigadeiros · SP</div></div></div>
+      </div>
+      <div class="review-card card-3d reveal delay-3">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Presente perfeito! Mandei a caixa mista para minha namorada e ela ficou encantada. Super recomendo!"</div>
+        <div class="review-author"><div class="review-avatar">👨</div><div><div class="review-name">Diego Souza</div><div class="review-meta">Caixa Mista · Osasco</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-tag reveal"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</div>
+      <h2 class="reveal delay-1">Siga o nosso Instagram</h2>
+      <p class="reveal delay-2">Acompanhe as novidades, sabores especiais e bastidores</p>
+      <div class="line-draw" style="margin:.8rem auto 0"></div>
+    </div>
+    <div class="ig-header reveal">
+      <div class="ig-icon"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+      <div>
+        <div class="ig-handle">@judocesart_</div>
+        <div class="ig-sub">Siga para não perder nada! 🍫</div>
+      </div>
+    </div>
+    <div class="ig-grid reveal delay-1">
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post Trufas Menu.jpeg" alt="Post Trufas Menu"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post Trufa.jpeg" alt="Post Trufa"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post Bolo Bombom.jpeg" alt="Post Bolo"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post Bolo Bombom Menu.jpeg" alt="Post Bolo Bombom Menu"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post Peça Já Trufa.jpeg" alt="Post Peça Já Bolo Trufas"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post alto em gostosura Trufa.png" alt="Post alto em gostosura Trufa"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post alto em gostosura Bolo Bombom.png" alt="Post alto em gostosura Bolo Bombom"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+      <div class="ig-post" onclick="openIG()"><span><img src="./images/Post Peça Já Bolo Bombom.jpeg" alt="Post Peça Já Bolo Bombom"></span><div class="ig-overlay"><i class="ti ti-brand-instagram" aria-hidden="true"></i>Ver post</div></div>
+    </div>
+    <div style="text-align:center;margin-top:1.8rem" class="reveal delay-2">
+      <button class="btn-primary btn-magnetic" onclick="openIG()">
+        <i class="ti ti-brand-instagram" aria-hidden="true"></i> Seguir @judocesart_
+      </button>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip reveal">
+    <h2>Pronta para fazer seu pedido?</h2>
+    <p>Entre em contato e vamos criar algo delicioso juntos!</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary btn-magnetic" onclick="nav('encomenda')">Fazer encomenda agora</button>
+      <a class="btn-magnetic" href="https://wa.me/5511995727966" style="background:transparent;border:2px solid rgba(255,255,255,.5);color:white;padding:14px 28px;border-radius:50px;font-size:14px;font-weight:800;font-family:var(--font);transition:all .2s;display:inline-flex;align-items:center;gap:7px;text-decoration:none;">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Falar no WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">JU Doces 🍫</div>
+    <p>Feito com muito amor</p>
+    <div class="footer-links">
+      <a href="https://wa.me/5511995727966"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="#" onclick="openIG()"><i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_</a>
+    </div>
+    <p class="footer-copy">© 2026 JU Doces · Todos os direitos reservados</p>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     CARDÁPIO
+════════════════════════════════════════ -->
+<div class="page" id="page-catalogo">
+  <div class="page-header">
+    <div class="section-tag"><i class="ti ti-cookie" aria-hidden="true"></i> Cardápio completo</div>
+    <h2>Nossos doces artesanais</h2>
+  </div>
+  <div class="section">
+    <div class="tag-filter">
+      <button class="tag-btn active" onclick="filterByTag('all', this)">Todos</button>
+      <button class="tag-btn" onclick="filterByTag('trufas', this)">🍫 Trufas</button>
+      <button class="tag-btn" onclick="filterByTag('bolos', this)">🎂 Bolos</button>
+      <button class="tag-btn" onclick="filterByTag('brigadeiros', this)">🍬 Brigadeiros</button>
+      <button class="tag-btn" onclick="filterByTag('caixas', this)">🎁 Caixas</button>
+    </div>
+    <div class="catalog-notice"><i class="ti ti-clock"></i> Pedidos com <strong>mínimo 3 dias</strong> de antecedência · Confirmação via WhatsApp</div>
+    <div class="products-grid" id="catalog-grid"></div>
+  </div>
+  <footer>
+    <div class="footer-logo">JU Doces 🍫</div>
+    <p>Feito com muito amor</p>
+    <div class="footer-links">
+      <a href="https://wa.me/5511995727966"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="#" onclick="openIG()"><i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_</a>
+    </div>
+    <p class="footer-copy">© 2026 JU Doces · Todos os direitos reservados</p>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     ENCOMENDA
+════════════════════════════════════════ -->
+<div class="page" id="page-encomenda">
+  <div class="page-header">
+    <div class="section-tag"><i class="ti ti-clipboard-text" aria-hidden="true"></i> Encomendas</div>
+    <h2>Faça sua encomenda especial</h2>
+    <p>Pedidos com mínimo 3 dias de antecedência · Confirmação via WhatsApp</p>
+  </div>
+  <div class="section">
+    <div class="order-container">
+      <div class="order-card" id="order-form-card">
+        <h3>👤 Seus dados</h3>
+        <div class="form-row">
+          <div class="fg"><label>Nome completo</label><input type="text" id="f-nome" placeholder="Seu nome" /></div>
+          <div class="fg"><label>WhatsApp</label><input type="tel" id="f-tel" placeholder="(11) 9 0000-0000" /></div>
+        </div>
+        <div class="fg"><label>E-mail (opcional)</label><input type="email" id="f-email" placeholder="seu@email.com" /></div>
+
+        <h3>🍫 Pedido</h3>
+        <div class="form-row">
+          <div class="fg">
+            <label>Produto</label>
+            <select id="f-produto">
+              <option value="">Selecione...</option>
+              <optgroup label="Trufas (unidade)">
+                <option>Trufa de Brigadeiro — R$ 6,00</option>
+                <option>Trufa de Prestígio — R$ 6,00</option>
+                <option>Trufa de Ninho — R$ 6,00</option>
+                <option>Trufa Ninho com Morango — R$ 6,00</option>
+                <option>Trufa de Maracujá — R$ 6,00</option>
+                <option>Trufa de Café — R$ 6,00</option>
+                <option>Trufa Alpino — R$ 6,00</option>
+              </optgroup>
+              <optgroup label="Bolos Bombom">
+                <option>Bolo Bombom Cenoura c/ Brigadeiro — R$ 7,50</option>
+                <option>Bolo Bombom Chocolate c/ Brigadeiro — R$ 7,50</option>
+                <option>Bolo Bombom Chocolate c/ Prestígio — R$ 7,50</option>
+              </optgroup>
+              <optgroup label="Brigadeiros (dúzia)">
+                <option>Brigadeiro Clássico — R$ 24,00/dz</option>
+                <option>Brigadeiro Especial — R$ 28,00/dz</option>
+              </optgroup>
+              <optgroup label="Caixas Presente">
+                <option>Caixa Mista 12 trufas — R$ 65,00</option>
+                <option>Caixa Mista 24 trufas — R$ 120,00</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="fg"><label>Quantidade</label><input type="number" id="f-qtd" min="1" value="1" /></div>
+        </div>
+        <div class="fg">
+          <label>Ocasião (opcional)</label>
+          <select id="f-ocasiao">
+            <option value="">Selecione...</option>
+            <option>Aniversário</option><option>Dia dos Namorados</option>
+            <option>Chá de Bebê</option><option>Casamento</option>
+            <option>Evento corporativo</option><option>Presente</option>
+            <option>Consumo próprio</option><option>Outro</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Observações e sabores</label>
+          <textarea id="f-obs" rows="3" placeholder="Ex: quero 6 brigadeiro e 6 prestígio, caixa presenteável, escrever 'Parabéns Lara'..."></textarea>
+        </div>
+
+        <h3>📅 Entrega</h3>
+        <div class="form-row">
+          <div class="fg"><label>Data desejada</label><input type="date" id="f-data" /></div>
+          <div class="fg">
+            <label>Forma de entrega</label>
+            <select id="f-entrega">
+              <option>Retirada em Osasco (grátis)</option>
+              <option>Entrega em Osasco (+R$ 10)</option>
+              <option>Entrega região (combinar)</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label>Endereço (se entrega)</label><input type="text" id="f-end" placeholder="Rua, número, bairro" /></div>
+
+        <button class="form-submit" onclick="submitOrder()">
+          <i class="ti ti-brand-whatsapp" aria-hidden="true"></i> Enviar encomenda pelo WhatsApp
+        </button>
+      </div>
+
+      <div class="success-box hidden" id="order-success">
+        <i class="ti ti-circle-check" aria-hidden="true"></i>
+        <h3>Encomenda enviada! 🎉</h3>
+        <p>Sua encomenda foi encaminhada pelo WhatsApp. A Ju vai confirmar o pedido e combinar o pagamento em breve.</p>
+        <button class="btn-primary" style="margin-top:1.5rem" onclick="resetOrder()">Fazer outro pedido</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">JU Doces 🍫</div>
+    <p>Feito com muito amor</p>
+    <div class="footer-links">
+      <a href="https://wa.me/5511995727966"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="#" onclick="openIG()"><i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_</a>
+    </div>
+    <p class="footer-copy">© 2026 JU Doces · Todos os direitos reservados</p>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     CARRINHO
+════════════════════════════════════════ -->
+<div class="page" id="page-carrinho">
+  <div class="page-header">
+    <div class="section-tag"><i class="ti ti-shopping-bag" aria-hidden="true"></i> Carrinho</div>
+    <h2>Seus doces selecionados</h2>
+  </div>
+  <div class="section">
+    <div class="cart-container">
+      <div id="cart-items-wrap"></div>
+      <div id="cart-checkout-wrap"></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">JU Doces 🍫</div>
+    <p>Feito com muito amor</p>
+    <div class="footer-links">
+      <a href="https://wa.me/5511995727966"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="#" onclick="openIG()"><i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_</a>
+    </div>
+    <p class="footer-copy">© 2026 JU Doces · Todos os direitos reservados</p>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     SOBRE
+════════════════════════════════════════ -->
+<div class="page" id="page-sobre">
+  <div class="page-header">
+    <div class="section-tag"><i class="ti ti-user-heart" aria-hidden="true"></i> Sobre</div>
+    <h2>Minha História</h2>
+  </div>
+  <div class="section">
+    <div class="about-page-card">
+      <div class="about-page-avatar">👩🏻‍🍳</div>
+      <h2>Um pouco sobre mim</h2>
+      <div class="about-page-subtitle">Confeiteira artesanal · @judocesart_ · SP</div>
+      <p>Comecei a fazer doces por paixão e amor pela confeitaria. O que começou como um hobby cheio de carinho virou um negócio repleto de sabor.</p>
+      <p>Cada docinho é feito com ingredientes selecionados, muito cuidado e um toque especial de amor. Meu objetivo é que cada mordida seja uma experiência inesquecível!</p>
+      <p>Faço encomendas para todos os tipos de ocasião: aniversários, casamentos, chás de bebê, eventos corporativos e muito mais.</p>
+      <div class="about-page-stats">
+        <div class="stat"><div class="stat-num-sm">100+</div><div class="stat-label">Clientes felizes</div></div>
+        <div class="stat"><div class="stat-num-sm">4 anos</div><div class="stat-label">De experiência</div></div>
+        <div class="stat"><div class="stat-num-sm">20+</div><div class="stat-label">Sabores</div></div>
+      </div>
+      <div class="about-actions">
+        <button class="btn-primary btn-magnetic" onclick="nav('encomenda')">Fazer encomenda</button>
+        <button class="btn-outline btn-magnetic" onclick="openIG()">
+          <i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_
+        </button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">JU Doces 🍫</div>
+    <p>Feito com muito amor</p>
+    <div class="footer-links">
+      <a href="https://wa.me/5511995727966"><i class="ti ti-brand-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      <a href="#" onclick="openIG()"><i class="ti ti-brand-instagram" aria-hidden="true"></i> @judocesart_</a>
+    </div>
+    <p class="footer-copy">© 2026 JU Doces · Todos os direitos reservados</p>
+  </footer>
+</div>
+
+
+<!-- SCRIPTS -->
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/catalog.js"></script>
+<script src="js/order.js"></script>
+<script src="js/app.js"></script>
+<script src="js/animations.js"></script>
+
+</body>
+</html>
