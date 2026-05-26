@@ -142,3 +142,7 @@ body.hovering #cursor-dot  { transform: translate(-50%,-50%) scale(0); }
 .scroll-wheel { width: 3px; height: 6px; background: #C8498A; border-radius: 2px; animation: scrollW 1.5s ease infinite; }
 @keyframes scrollW { 0%,100% { transform: translateY(0); opacity: 1 } 70% { transform: translateY(8px); opacity: 0 } }
 @keyframes fadeInUp { from { opacity:0; transform: translateX(-50%) translateY(12px) } to { opacity:.6; transform: translateX(-50%) translateY(0) } }
+
+@media (max-width: 768px) {
+  .scroll-ind { display: none; }
+}
