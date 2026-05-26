@@ -55,11 +55,12 @@ function animateCounters() {
   document.querySelectorAll('[data-count]').forEach(el => {
     const target = parseInt(el.dataset.count);
     const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
     let current = 0;
     const step = Math.ceil(target / 60);
     const timer = setInterval(() => {
       current = Math.min(current + step, target);
-      el.textContent = current + suffix;
+      el.textContent = prefix + current + suffix;
       if (current >= target) clearInterval(timer);
     }, 25);
   });
