@@ -291,6 +291,9 @@ a.wa-float { text-decoration: none; }
 
   /* stats */
   .stats-grid { grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  #stats-section { padding: 3.5rem 1.2rem; }
+  .stat-num { font-size: 40px; }
+  .stat-label { font-size: 11px; letter-spacing: .5px; }
 
   /* cards */
   .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 1rem; }
@@ -315,9 +318,10 @@ a.wa-float { text-decoration: none; }
   .steps-grid { grid-template-columns: repeat(2,1fr); }
 
   /* form */
-  .form-row { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr !important; gap: .8rem; }
   .order-card { padding: 1.5rem; }
-  .calc-row { grid-template-columns: 1fr; }
+  .calc-row { grid-template-columns: 1fr !important; }
+  .fg input, .fg select, .fg textarea { font-size: 16px; } /* evita zoom iOS */
 
   /* cart */
   .cart-total-box { flex-direction: column; gap: .5rem; text-align: center; }
@@ -339,7 +343,8 @@ a.wa-float { text-decoration: none; }
   .ig-grid { grid-template-columns: repeat(2,1fr); }
   .occasions-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
-  .about-page-stats { grid-template-columns: repeat(3,1fr); }
+  .about-page-stats { grid-template-columns: repeat(2,1fr) !important; gap: .8rem; }
+  .about-page-stats .stat:last-child { grid-column: 1 / -1; max-width: 160px; margin: 0 auto; width: 100%; }
   .hero-badges { flex-direction: column; align-items: center; gap: .6rem; }
   .products-grid { grid-template-columns: repeat(2,1fr); }
 }
